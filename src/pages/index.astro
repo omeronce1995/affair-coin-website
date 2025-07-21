@@ -1,16 +1,456 @@
 ---
-
 ---
 
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" href="/affair-logo.png" />
 		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Love+Light&family=Love+Ya+Like+A+Sister&display=swap" rel="stylesheet">
+    <title>AFFAIR Memecoin</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: "Love Light", cursive;
+  		font-weight: 400;
+  		font-style: normal;
+        background: #f9f9f9;
+        color: #222;
+      }
+      .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.5rem 2rem;
+        background: #fff;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+      .logo img {
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+        border: 2px solid #e0e0e0;
+      }
+      .nav {
+        display: flex;
+        gap: 2rem;
+        align-items: center;
+      }
+      .nav a {
+        text-decoration: none;
+        color: #222;
+        font-weight: 500;
+        transition: color 0.2s;
+        padding: 0.25rem 0.5rem;
+      }
+      .nav a:hover {
+        color: #ff4c8b;
+      }
+      .buy-btn {
+        background: #ff4c8b;
+        color: #fff;
+        border: none;
+        border-radius: 20px;
+        padding: 0.5rem 1.5rem;
+        font-size: 1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+      .buy-btn:hover {
+        background: #e03e74;
+      }
+      section {
+        padding: 4rem 1rem 3rem 1rem;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      section h2 {
+        color: #ff4c8b;
+        margin-bottom: 1rem;
+        font-size: 75px;
+        font-family: "Love Light", cursive;
+        font-weight: 800;
+        letter-spacing: 1px;
+      }
+      section p, section ol, section ul, .how-to-buy-text {
+        font-family: "Love Ya Like A Sister", cursive;
+  		font-weight: 400;
+  		font-style: normal;
+		font-size: 28px;
+      }
+      /* How to Buy Cards */
+      .how-to-buy-cards {
+        display: flex;
+        gap: 2rem;
+        justify-content: center;
+        margin-top: 2rem;
+        flex-wrap: wrap;
+      }
+      .how-to-buy-card {
+        background: #fff;
+        border-radius: 1.5rem;
+        box-shadow: 0 4px 24px 0 rgba(0,0,0,0.08);
+        display: flex;
+        align-items: flex-start;
+        padding: 2rem 1.5rem;
+        min-width: 260px;
+        max-width: 340px;
+        flex: 1 1 260px;
+        gap: 1.25rem;
+        margin-bottom: 1.5rem;
+        transition: box-shadow 0.2s, transform 0.2s;
+      }
+      .how-to-buy-card:hover {
+        box-shadow: 0 8px 32px 0 rgba(255,76,139,0.12);
+        transform: translateY(-4px) scale(1.03);
+      }
+      .how-to-buy-icon {
+        flex-shrink: 0;
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        background: #f5f5f5;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 8px 0 rgba(0,0,0,0.04);
+      }
+      .how-to-buy-icon img {
+        width: 36px;
+        height: 36px;
+        object-fit: contain;
+      }
+      .how-to-buy-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .how-to-buy-title {
+        font-size: 1.15rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        font-family: "Love Ya Like A Sister", cursive;
+  		font-weight: 400;
+  		font-style: normal;
+        letter-spacing: 0.5px;
+      }
+      .how-to-buy-text {
+        font-size: 1rem;
+        color: #444;
+        font-family: "Love Ya Like A Sister", cursive;
+  		font-weight: 400;
+  		font-style: normal;
+      }
+      /* Home section icons */
+      .home-content-row {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 2rem;
+        margin-top: 2.5rem;
+      }
+      .home-left {
+        flex: 1 1 0;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.5rem;
+      }
+      .home-icons-row {
+        display: flex;
+        align-items: center;
+        gap: 2.5rem;
+        margin: 0;
+      }
+      .home-icon {
+        width: 80px;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 20px;
+        background: #fff;
+        transition: box-shadow 0.2s, transform 0.2s;
+      }
+      .home-icon img {
+        width: 60px;
+        height: 60px;
+        object-fit: contain;
+      }
+      .home-coin-logo {
+        flex-shrink: 0;
+        display: flex;
+        align-items: flex-end;
+        justify-content: flex-end;
+        height: 100%;
+      }
+      .home-coin-logo img {
+        width: 260px;
+        height: 260px;
+        object-fit: contain;
+        border-radius: 32px;
+      }
+      /* Roadmap timeline */
+      .roadmap-timeline {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: center;
+        gap: 2rem;
+        margin-top: 2.5rem;
+        position: relative;
+      }
+      .roadmap-card {
+        background: #fff;
+        border-radius: 1.5rem;
+        box-shadow: 0 4px 24px 0 rgba(0,0,0,0.08);
+        padding: 2rem 1.5rem;
+        min-width: 220px;
+        max-width: 300px;
+        flex: 1 1 220px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        position: relative;
+        z-index: 1;
+      }
+      .roadmap-timeline::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        height: 6px;
+        background: linear-gradient(90deg, #ff4c8b 0%, #ffb86b 100%);
+        z-index: 0;
+        transform: translateY(-50%);
+      }
+      .roadmap-card:not(:last-child)::after {
+        content: '';
+        position: absolute;
+        right: -1rem;
+        top: 50%;
+        width: 2rem;
+        height: 6px;
+        background: transparent;
+        z-index: 2;
+      }
+      @media (max-width: 900px) {
+        .how-to-buy-cards {
+          flex-direction: column;
+          align-items: stretch;
+          gap: 1.5rem;
+        }
+        .how-to-buy-card {
+          max-width: 100%;
+        }
+        .roadmap-timeline {
+          flex-direction: column;
+          gap: 2.5rem;
+          align-items: stretch;
+        }
+        .roadmap-timeline::before {
+          left: 50%;
+          top: 0;
+          bottom: 0;
+          width: 6px;
+          height: 100%;
+          background: linear-gradient(180deg, #ff4c8b 0%, #ffb86b 100%);
+          transform: translateX(-50%);
+        }
+        .roadmap-card {
+          max-width: 100%;
+        }
+        .roadmap-card:not(:last-child)::after {
+          content: '';
+          position: absolute;
+          left: 50%;
+          top: 100%;
+          width: 6px;
+          height: 2rem;
+          background: transparent;
+          z-index: 2;
+          transform: translateX(-50%);
+        }
+        .home-content-row {
+          flex-direction: column;
+          align-items: stretch;
+        }
+        .home-coin-logo {
+          justify-content: center;
+          margin-top: 2rem;
+        }
+        .home-coin-logo img {
+          width: 120px;
+          height: 120px;
+        }
+      }
+      @media (max-width: 600px) {
+        .topbar {
+          flex-direction: column;
+          gap: 0.5rem;
+          padding: 1rem;
+        }
+        .nav {
+          gap: 1rem;
+        }
+      }
+      .fade-in-section {
+        opacity: 0;
+        transform: translateY(60px);
+        transition: opacity 0.8s cubic-bezier(0.4,0,0.2,1), transform 0.8s cubic-bezier(0.4,0,0.2,1);
+        will-change: opacity, transform;
+      }
+      .fade-in-section.visible {
+        opacity: 1;
+        transform: none;
+      }
+    </style>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const sections = document.querySelectorAll('.fade-in-section');
+        const observer = new window.IntersectionObserver((entries, obs) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              obs.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.15 });
+        sections.forEach(section => observer.observe(section));
+      });
+    </script>
 	</head>
 	<body>
-		<h1>Astro</h1>
+    <header class="topbar">
+      <div class="logo">
+        <img src="/affair-logo.png" alt="AFFAIR Logo" />
+        <span style="font-size:1.5rem;font-weight:bold;letter-spacing:2px;">AFFAIR</span>
+      </div>
+      <nav class="nav">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#how-to-buy">How to Buy</a>
+        <a href="#tokenomics">Tokenomics</a>
+        <a href="#roadmap">Roadmap</a>
+        <button class="buy-btn" onclick="window.open('https://coinbook.fun/token/53vD5Dcu1RDX4PS5krMHEpjA9BSH1FmAyydiFz12coin', '_blank')">Buy Now</button>
+      </nav>
+    </header>
+    <main>
+      <section id="home" class="fade-in-section">
+        <h2>$AFFAIR</h2>
+        <div class="home-content-row">
+          <div class="home-left">
+            <p>A scandalous memecoin with no utility, no shame, and no regrets. Ride the hype. Break hearts. Moon together.</p>
+            <div class="home-icons-row">
+              <a class="home-icon" href="https://x.com/theceoaffair" target="_blank" rel="noopener" title="X (Twitter)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 1200 1227" fill="none">
+					<path d="M714.163 519.284L1160.89 0H1055.03L667.137 450.887L357.328 0H0L468.492 681.821L0 1226.37H105.866L515.491 750.218L842.672 1226.37H1200L714.137 519.284H714.163ZM569.165 687.828L521.697 619.934L144.011 79.6944H306.615L611.412 515.685L658.88 583.579L1055.08 1150.3H892.476L569.165 687.854V687.828Z" fill="#ff4c8b"/>
+				</svg>
+              </a>
+              <a class="home-icon" href="https://coinbook.fun/token/53vD5Dcu1RDX4PS5krMHEpjA9BSH1FmAyydiFz12coin" target="_blank" rel="noopener" title="Coinbook.fun">
+                <img src="/coinbook-logo.png" alt="Coinbook.fun" />
+              </a>
+            </div>
+          </div>
+          <div class="home-coin-logo">
+            <img src="/affair-logo.png" alt="AFFAIR Coin Logo" />
+          </div>
+        </div>
+      </section>
+      <section id="about" class="fade-in-section">
+        <h2>About</h2>
+        <p>AFFAIR Coin ($AFFAIR) is a playful tribute to the viral moment when a tech CEO’s real-life drama unfolded on the big screen. Channeling the spirit of spontaneous (and sometimes awkward) public surprises, $AFFAIR is the meme coin for everyone who’s ever wanted to duck away from modern internet fame..</p>
+      </section>
+      <section id="how-to-buy" class="fade-in-section">
+        <h2>How to Buy</h2>
+        <div class="how-to-buy-cards">
+          <div class="how-to-buy-card">
+            <div class="how-to-buy-icon">
+              <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="3" y="7" width="30" height="22" rx="5" fill="#e0e0e0"/>
+                <rect x="7" y="11" width="22" height="14" rx="3" fill="#fff"/>
+                <circle cx="27" cy="18" r="2" fill="#bdbdbd"/>
+                <rect x="3" y="7" width="30" height="22" rx="5" stroke="#888" stroke-width="2"/>
+              </svg>
+            </div>
+            <div class="how-to-buy-content">
+              <div class="how-to-buy-title">Create a wallet</div>
+              <div class="how-to-buy-text">
+                Download Phantom wallet app or wallet of choice from the App Store or Google Play Store for free. Desktop users, download the Google Chrome extension by going to <a href="https://phantom.app/" target="_blank" rel="noopener">phantom.com</a>.
+              </div>
+            </div>
+          </div>
+          <div class="how-to-buy-card">
+            <div class="how-to-buy-icon">
+              <img src="/solana-logo.png" alt="Solana Logo" />
+            </div>
+            <div class="how-to-buy-content">
+              <div class="how-to-buy-title">Buy some SOL's</div>
+              <div class="how-to-buy-text">
+                Have SOL in your wallet to switch to $AFFAIR. If you don’t have any SOL, you can buy directly on Phantom wallet, transfer from another wallet, or buy on another exchange and send it to your wallet.
+              </div>
+            </div>
+          </div>
+          <div class="how-to-buy-card">
+            <div class="how-to-buy-icon">
+              <img src="/coinbook-logo.png" alt="Coinbook.fun Logo" />
+            </div>
+            <div class="how-to-buy-content">
+              <div class="how-to-buy-title">Buy in Coinbook</div>
+              <div class="how-to-buy-text">
+                Connect to <a href="https://coinbook.fun/token/53vD5Dcu1RDX4PS5krMHEpjA9BSH1FmAyydiFz12coin" target="_blank" rel="noopener">coinbook.fun</a>. Search for AFFAIR token in the searchbar. Connect your wallet. Set how much SOL you want to use for buying AFFAIR. Place the trade to get them sweet AFFAIR coins.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="tokenomics" class="fade-in-section">
+        <h2>Tokenomics</h2>
+        <ul>
+          <li><strong>Total Supply:</strong> 1,000,000,000 AFFAIR</li>
+          <li><strong>Liquidity:</strong> 50%</li>
+          <li><strong>Community Rewards:</strong> 30%</li>
+          <li><strong>Development:</strong> 10%</li>
+          <li><strong>Marketing:</strong> 10%</li>
+        </ul>
+      </section>
+      <section id="roadmap" class="fade-in-section">
+        <h2>Roadmap</h2>
+        <div class="roadmap-timeline">
+          <div class="roadmap-card">
+            <div class="how-to-buy-title">Flirt Phase</div>
+            <div class="how-to-buy-text">Charm Coinbook</div>
+          </div>
+          <div class="roadmap-card">
+            <div class="how-to-buy-title">Seducation Phase</div>
+            <div class="how-to-buy-text">Official Dex Listing</div>
+          </div>
+          <div class="roadmap-card">
+            <div class="how-to-buy-title">Meme AFFAIR</div>
+            <div class="how-to-buy-text">HODL & Conquer</div>
+          </div>
+        </div>
+      </section>
+      <section id="legal-disclaimer" class="fade-in-section">
+        <h2 style="font-size: 36px">Legal & Risk Disclaimer</h2>
+        <p style="max-width:900px;margin:0 auto;line-height:1.7;color:#888;font-size:28px;font-family:'Segoe UI',Arial,sans-serif;">
+          Disclaimer: $AFFAIR is a meme cryptocurrency created for entertainment and community engagement purposes only. It is not intended as investment advice, an offer to invest, or a solicitation to buy or sell any security or financial instrument. Cryptocurrencies are highly volatile and risky. Always do your own research before making any financial decisions. The creators of $AFFAIR disclaim any liability for losses or damages incurred. This project and website are not affiliated with Astronomer, Coldplay, or any individuals mentioned in meme content.
+        </p>
+      </section>
+    </main>
 	</body>
 </html>
